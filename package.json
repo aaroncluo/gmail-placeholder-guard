@@ -1,6 +1,6 @@
 {
   "name": "gmail-placeholder-guard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "Chrome extension that blocks Gmail sends containing [square-bracket] placeholders. Dev tooling only; the extension itself has no dependencies.",
   "scripts": {

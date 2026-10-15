@@ -5,23 +5,24 @@ Copy these into the Chrome Web Store dashboard (see DASHBOARD.md for where).
 ## Name (max 45 chars)
 
 ```
-Placeholder Guard for Gmail
+Free Placeholder Guard for Gmail
 ```
 
 ## Summary (max 132 chars)
 
 ```
-Warns before you send a Gmail message that still contains [square-bracket] placeholders. Local check, no permissions.
+Never accidentally send "Hi [Name]" again. Catch embarrassing placeholders before your emails are sent. 100% free and automatic.
 ```
 
-(117 characters)
+(128 characters — this is also the manifest `description`, so the dashboard
+picks it up from the package automatically)
 
 ## Detailed description (max 16,000 chars; plain text, no HTML)
 
 ```
-Ever sent "Dear [Professor Name]"? This extension makes sure you don't.
+Ever sent "Hi [Name]"? This free extension makes sure you never do it again.
 
-When you click Send in Gmail (or press Ctrl+Enter / ⌘+Enter), Placeholder Guard checks the subject and body of the draft you're sending for square brackets — [Name], [Company], [Date], or an empty [] — the kind of placeholder left behind in a template. If it finds one, it stops the send before Gmail processes it and shows you exactly what it found, with two choices:
+When you click Send in Gmail (or press Ctrl+Enter / ⌘+Enter), Free Placeholder Guard checks the subject and body of the draft you're sending for square brackets — [Name], [Company], [Date], or an empty [] — the kind of placeholder left behind in a template. If it finds one, it stops the send before Gmail processes it and shows you exactly what it found, with two choices:
 
 • Go Back and Edit — return to your draft; nothing is sent.
 • Send Anyway — send once, with no second prompt.
@@ -43,7 +44,9 @@ KEEP IN MIND
 • Scheduled sends and sends from other devices are not covered.
 • Works in the Gmail web app at mail.google.com (desktop browsers).
 
-Placeholder Guard is independent and not affiliated with or endorsed by Google. Gmail is a trademark of Google LLC.
+Free forever: no account, no subscription, no upsell.
+
+Free Placeholder Guard is independent and not affiliated with or endorsed by Google. Gmail is a trademark of Google LLC.
 ```
 
 ## Category

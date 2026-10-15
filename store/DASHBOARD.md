@@ -15,7 +15,7 @@ developer registration fee if you haven't published before).
 
 | Where | File |
 | --- | --- |
-| **Package** tab → *Upload new package* | `dist/gmail-placeholder-guard-1.0.2.zip` |
+| **Package** tab → *Upload new package* | `dist/gmail-placeholder-guard-1.0.3.zip` |
 | **Store listing** → *Store icon* (128×128) | `store/assets/icon-128.png` |
 | **Store listing** → *Screenshots* (1280×800, up to 5) | `store/assets/screenshot-1-warning.png`, `store/assets/screenshot-2-subject.png`, `store/assets/screenshot-3-clean.png` — upload in this order |
 | **Store listing** → *Small promo tile* (440×280, optional) | `store/assets/promo-small-440x280.png` |
@@ -30,8 +30,8 @@ names and addresses only.
 
 | Field | Enter |
 | --- | --- |
-| Title | Taken from the manifest: **Placeholder Guard for Gmail** |
-| Summary | Taken from the manifest `description` (shown in the dashboard; edit there if you want the longer summary from `description.md`) |
+| Title | Taken from the manifest: **Free Placeholder Guard for Gmail** |
+| Summary | Taken from the manifest `description` (the 128-char line in `description.md`) |
 | Description | Paste the *Detailed description* block from `description.md` |
 | Category | Productivity → Tools |
 | Language | English |

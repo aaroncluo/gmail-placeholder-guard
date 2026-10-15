@@ -31,8 +31,8 @@ const PROMO_HTML = `<!doctype html><meta charset="utf-8"><style>
   h1{margin:0 0 8px;font-size:26px;font-weight:500;line-height:1.2}
   p{margin:0;font-size:15px;color:#5f6368;line-height:1.4}
   code{background:#fef7e0;color:#b06000;padding:1px 5px;border-radius:4px;font-size:14px}
-</style><div class="w"><img src="${ICON_DATA_URL}" alt=""><div><h1>Placeholder Guard<br>for Gmail</h1>
-<p>Catches <code>[unfinished placeholders]</code> before you hit Send.</p></div></div>`;
+</style><div class="w"><img src="${ICON_DATA_URL}" alt=""><div><h1>Free Placeholder<br>Guard for Gmail</h1>
+<p>Never send <code>"Hi [Name]"</code> again. 100% free.</p></div></div>`;
 
 // --- screenshots -------------------------------------------------------------
 (async () => {
