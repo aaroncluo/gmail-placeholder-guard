@@ -1,0 +1,187 @@
+<!doctype html>
+<!--
+  Simulated Gmail compose UI for automated tests.
+
+  The compose markup below is a skeleton captured from the real Gmail web UI
+  on 2026-10-15 (tags, nesting, classes, roles, aria-labels, data-tooltips;
+  ids, styles and jsaction attributes stripped). The details that broke the
+  first version of this extension are all present:
+
+    - TWO elements carry aria-label="Message Body": a hidden, empty
+      <textarea class="Ak aiL"> (plain-text fallback) that comes FIRST in
+      document order, and the contenteditable <div class="Am Al editable">
+      the user types in. Reading the first match reads an empty body.
+    - The Send button is NOT inside the <form>; only the recipients and
+      subject are. There is no single wrapper that is "the compose" other
+      than the dialog / table cell.
+    - The Send button is a <div role=button data-tooltip="Send ‪(Ctrl-Enter)‬">
+      with a sibling "More send options" ▾ button.
+
+  Gmail attaches its handlers by delegation on the document (jsaction) and
+  sends on `click` and on `keydown` (Ctrl/Cmd+Enter); the fake handlers below
+  do the same, verified against real Gmail by observing the event sequence.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mock Gmail</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background: #f6f8fc; }
+  .nH[role=dialog], .inline-reply { background: #fff; border: 1px solid #ccc; padding: 10px; margin: 10px 0; width: 520px; }
+  .editable { min-height: 60px; border: 1px solid #eee; padding: 6px; }
+  .Ak { display: none; }
+  .aoO { display: inline-block; background: #0b57d0; color: #fff; padding: 6px 14px; border-radius: 16px; cursor: pointer; }
+  .hG { display: inline-block; background: #0b57d0; color: #fff; padding: 6px 8px; cursor: pointer; }
+  .hG::before { content: "▾"; }
+  input { width: 100%; margin: 4px 0; }
+  #log { font-family: monospace; white-space: pre; }
+</style>
+</head>
+<body>
+<h1>Mock Gmail</h1>
+
+<!-- Compose 1: new message (real Gmail skeleton) -->
+<div class="nH Hd rT5Apb" role="dialog" id="compose1">
+ <div class="nH"><div class="aaZ rT5Apb"><div class="M9">
+  <div class="aoI" role="region" aria-label="New Message">
+   <table class="aoP aoC" role="presentation"><tbody><tr><td class="I5 bzE">
+    <form class="bAs" method="POST" enctype="multipart/form-data">
+     <div class="fX aiL"><table class="GS" tabindex="-1"><tbody class="bze"><tr class="bzf"><td class="eV"><div class="oj"><div class="wO nr l1">
+      <div class="anm" aria-label="To" name="to"><div class="aUy"><div class="afp"><div class="aU4VQc YxcKdf"><div class="aGb RuSUmb"><div>
+       <div class="afx" role="listbox" aria-label="Search Field" tabindex="-1"><div class="aH9" role="presentation">
+        <input class="agP aFw" role="combobox" aria-label="To recipients" type="text" spellcheck="false" value="someone@example.com">
+       </div></div>
+      </div></div></div></div></div></div>
+     </div></div></td></tr></tbody></table></div>
+     <div class="aoD az6">
+      <input class="aoT" aria-label="Subject" name="subjectbox" tabindex="1" spellcheck="true" placeholder="Subject">
+     </div>
+    </form>
+    <table class="iN"><tbody>
+     <tr><td class="GQ"><div class="GP"><div class="qz aiL"><div class="et"><div class="ZyRVue"><div>
+      <table class="cf An"><tbody><tr><td class="Ap">
+       <div class="Ar As"><div class="At">
+        <textarea class="Ak aiL" aria-label="Message Body" tabindex="1" spellcheck="true"></textarea>
+       </div></div>
+       <div class="Ar Au"><div class="aO7">
+        <div class="Am aiL Al editable LW-avf tS-tW" role="textbox" aria-label="Message Body" contenteditable="true" g_editable="true" tabindex="1" aria-multiline="true" spellcheck="false"></div>
+       </div></div>
+      </td></tr></tbody></table>
+     </div></div></div></div></div></td></tr>
+     <tr><td class="HE"><div class="aDg"><div class="aDj ahe"><div class="aDh">
+      <table class="IZ" role="group"><tbody><tr class="btC">
+       <td class="gU Up"><div class="J-J5-Ji btA"><div class="dC">
+        <div class="T-I J-J5-Ji aoO v7 T-I-atl L3 T-I-JW T-I-JO T-I-Zf-aw2" role="button" aria-label="Send &#x202a;(Ctrl-Enter)&#x202b;" data-tooltip="Send &#x202a;(Ctrl-Enter)&#x202b;" tabindex="1">Send</div>
+        <div class="T-I J-J5-Ji hG T-I-atl L3 T-I-JW" role="button" aria-label="More send options" data-tooltip="More send options" tabindex="1"></div>
+       </div></div></td>
+       <td class="gU"><div role="button" data-tooltip="Formatting options" aria-label="Formatting options" tabindex="1">A</div></td>
+      </tr></tbody></table>
+     </div></div></div></td></tr>
+    </tbody></table>
+   </td></tr></tbody></table>
+  </div>
+ </div></div></div>
+</div>
+
+<!-- Compose 2: second new message (same skeleton) -->
+<div class="nH Hd rT5Apb" role="dialog" id="compose2">
+ <div class="nH"><div class="aaZ rT5Apb"><div class="M9">
+  <div class="aoI" role="region" aria-label="New Message">
+   <table class="aoP aoC" role="presentation"><tbody><tr><td class="I5 bzE">
+    <form class="bAs" method="POST" enctype="multipart/form-data">
+     <div class="aoD az6">
+      <input class="aoT" aria-label="Subject" name="subjectbox" tabindex="1" spellcheck="true" placeholder="Subject">
+     </div>
+    </form>
+    <table class="iN"><tbody>
+     <tr><td class="GQ"><div class="GP"><div class="qz aiL"><div class="et"><div class="ZyRVue"><div>
+      <table class="cf An"><tbody><tr><td class="Ap">
+       <div class="Ar As"><div class="At">
+        <textarea class="Ak aiL" aria-label="Message Body" tabindex="1" spellcheck="true"></textarea>
+       </div></div>
+       <div class="Ar Au"><div class="aO7">
+        <div class="Am aiL Al editable LW-avf tS-tW" role="textbox" aria-label="Message Body" contenteditable="true" g_editable="true" tabindex="1" aria-multiline="true" spellcheck="false"></div>
+       </div></div>
+      </td></tr></tbody></table>
+     </div></div></div></div></div></td></tr>
+     <tr><td class="HE"><div class="aDg"><div class="aDj ahe"><div class="aDh">
+      <table class="IZ" role="group"><tbody><tr class="btC">
+       <td class="gU Up"><div class="J-J5-Ji btA"><div class="dC">
+        <div class="T-I J-J5-Ji aoO v7 T-I-atl L3 T-I-JW T-I-JO T-I-Zf-aw2" role="button" aria-label="Send &#x202a;(Ctrl-Enter)&#x202b;" data-tooltip="Send &#x202a;(Ctrl-Enter)&#x202b;" tabindex="1">Send</div>
+        <div class="T-I J-J5-Ji hG T-I-atl L3 T-I-JW" role="button" aria-label="More send options" data-tooltip="More send options" tabindex="1"></div>
+       </div></div></td>
+      </tr></tbody></table>
+     </div></div></div></td></tr>
+    </tbody></table>
+   </td></tr></tbody></table>
+  </div>
+ </div></div></div>
+</div>
+
+<!-- Compose 3: inline reply (no role=dialog, no subject box) with quoted history + signature -->
+<div class="inline-reply" id="compose3">
+ <div class="aoI" role="region" aria-label="Reply">
+  <table class="iN"><tbody>
+   <tr><td class="GQ"><div class="GP"><div class="qz aiL"><div class="et"><div class="ZyRVue"><div>
+    <table class="cf An"><tbody><tr><td class="Ap">
+     <div class="Ar As"><div class="At">
+      <textarea class="Ak aiL" aria-label="Message Body" tabindex="1" spellcheck="true"></textarea>
+     </div></div>
+     <div class="Ar Au"><div class="aO7">
+      <div class="Am aiL Al editable LW-avf tS-tW" role="textbox" aria-label="Message Body" contenteditable="true" g_editable="true" tabindex="1" aria-multiline="true"><div>Sounds good, see you then.</div><div><br></div><div data-smartmail="gmail_signature" dir="ltr">-- <br>Alex [Dev] Example</div><div class="gmail_quote gmail_quote_container"><div dir="ltr" class="gmail_attr">On Tue, Jan 1, 2026 someone wrote:</div><blockquote class="gmail_quote">Can you fill in [Company] and [Date]?</blockquote></div></div>
+     </div></div>
+    </td></tr></tbody></table>
+   </div></div></div></div></div></td></tr>
+   <tr><td class="HE"><div class="aDg"><div class="aDj ahe"><div class="aDh">
+    <table class="IZ" role="group"><tbody><tr class="btC">
+     <td class="gU Up"><div class="J-J5-Ji btA"><div class="dC">
+      <div class="T-I J-J5-Ji aoO v7 T-I-atl L3" role="button" aria-label="Send &#x202a;(Ctrl-Enter)&#x202b;" data-tooltip="Send &#x202a;(Ctrl-Enter)&#x202b;" tabindex="1">Send</div>
+     </div></div></td>
+    </tr></tbody></table>
+   </div></div></div></td></tr>
+  </tbody></table>
+ </div>
+</div>
+
+<div>Unrelated page button: <span role="button" id="other-button" tabindex="0">Send feedback about Mock</span></div>
+<div id="log"></div>
+
+<script>
+  // "Gmail" — records sends and closes the compose. Delegated like jsaction.
+  window.__sent = [];
+  window.__events = [];
+  function composeOf(el) { return el.closest('.nH[role=dialog], .inline-reply'); }
+  function doSend(compose, via) {
+    if (!compose) return;
+    var subject = compose.querySelector('input[name=subjectbox]');
+    window.__sent.push({
+      id: compose.id,
+      via: via,
+      subject: subject ? subject.value : null,
+      body: compose.querySelector('div[aria-label="Message Body"][contenteditable]').innerText
+    });
+    compose.remove();
+    document.getElementById('log').textContent = JSON.stringify(window.__sent, null, 1);
+  }
+  document.addEventListener('click', function (e) {
+    window.__events.push('click:' + (e.target.id || e.target.className || e.target.tagName));
+    var btn = e.target.closest('[role=button]');
+    if (!btn) return;
+    if (btn.classList.contains('aoO')) doSend(composeOf(btn), 'click');
+    if (btn.classList.contains('hG')) btn.setAttribute('data-opened', '1');
+  });
+  document.addEventListener('keydown', function (e) {
+    window.__events.push('keydown:' + e.key);
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      doSend(composeOf(e.target), 'shortcut');
+      return;
+    }
+    var btn = e.target.closest && e.target.closest('[role=button].aoO');
+    if (btn && (e.key === 'Enter' || e.key === ' ')) doSend(composeOf(btn), 'key');
+  });
+  document.addEventListener('mousedown', function (e) {
+    window.__events.push('mousedown:' + (e.target.id || e.target.className || e.target.tagName));
+  });
+</script>
+</body>
+</html>

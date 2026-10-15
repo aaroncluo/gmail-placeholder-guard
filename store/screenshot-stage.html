@@ -1,0 +1,133 @@
+<!doctype html>
+<!--
+  Stage for Chrome Web Store screenshots (1280x800).
+
+  A Gmail-like inbox + compose window built from DUMMY data only, using the
+  same compose skeleton the extension relies on (see test/mock-gmail.html) so
+  the REAL extension (content.js + styles.css) renders the real warning dialog
+  over it. Served at https://mail.google.com/store-stage/ through a Playwright
+  route by tools/make-store-assets.js; nothing here touches real Gmail.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stage</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; font-family: "Google Sans", Roboto, Arial, sans-serif; color: #202124; background: #f6f8fc; }
+  .top { height: 64px; display: flex; align-items: center; padding: 0 16px; gap: 24px; }
+  .logo { display: flex; align-items: center; gap: 8px; width: 220px; font-size: 22px; color: #5f6368; }
+  .logo .m { width: 34px; height: 26px; border-radius: 4px; background: linear-gradient(90deg,#ea4335 0 33%, #fbbc04 33% 66%, #34a853 66%); opacity: .85; }
+  .search { flex: 0 0 720px; height: 48px; border-radius: 24px; background: #e9eef6; display: flex; align-items: center; padding: 0 20px; color: #5f6368; font-size: 16px; }
+  .avatar { margin-left: auto; width: 32px; height: 32px; border-radius: 50%; background: #1a73e8; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 500; }
+  .side { position: absolute; top: 64px; left: 0; width: 256px; padding: 8px 12px; }
+  .compose { height: 56px; width: 140px; border-radius: 16px; background: #c2e7ff; display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: 500; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.2); margin: 0 0 16px 8px; }
+  .nav { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+  .nav li { height: 32px; line-height: 32px; padding-left: 24px; border-radius: 0 16px 16px 0; color: #202124; }
+  .nav li.active { background: #d3e3fd; font-weight: 700; }
+  .list { position: absolute; top: 64px; left: 256px; right: 16px; bottom: 16px; background: #fff; border-radius: 16px; overflow: hidden; }
+  .toolbar { height: 48px; border-bottom: 1px solid #eee; display: flex; align-items: center; padding: 0 16px; color: #5f6368; font-size: 13px; }
+  .row { height: 40px; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid #f1f3f4; font-size: 14px; }
+  .row .cb { width: 16px; height: 16px; border: 2px solid #c4c7c5; border-radius: 2px; margin-right: 24px; }
+  .row .from { width: 200px; font-weight: 700; }
+  .row .subj { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .subj span { color: #5f6368; font-weight: 400; }
+  .row .time { width: 70px; text-align: right; color: #5f6368; font-size: 12px; }
+  .row.read .from, .row.read .subj { font-weight: 400; }
+
+  /* Compose window (classes from the real Gmail skeleton; styles are ours) */
+  .nH[role=dialog] { position: absolute; right: 70px; bottom: 0; width: 560px; height: 520px; background: #fff; border-radius: 8px 8px 0 0; box-shadow: 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12), 0 5px 5px -3px rgba(0,0,0,.2); display: flex; flex-direction: column; }
+  .aoI { display: flex; flex-direction: column; height: 100%; }
+  .hdr { height: 40px; background: #f2f6fc; border-radius: 8px 8px 0 0; display: flex; align-items: center; padding: 0 16px; font-size: 14px; font-weight: 500; }
+  .hdr .x { margin-left: auto; color: #444746; letter-spacing: 12px; }
+  table { border-collapse: collapse; width: 100%; }
+  .aoP, .iN { width: 100%; }
+  .aoP > tbody > tr > td, .iN > tbody > tr > td { padding: 0; }
+  form { margin: 0; }
+  .fX { padding: 0 16px; }
+  .fX .anm { display: flex; align-items: center; height: 40px; border-bottom: 1px solid #eceff1; font-size: 14px; color: #5f6368; }
+  .fX .anm::before { content: "To"; margin-right: 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px 0 2px; border-radius: 12px; border: 1px solid #dadce0; color: #202124; font-size: 13px; }
+  .chip i { width: 20px; height: 20px; border-radius: 50%; background: #7b1fa2; }
+  .chip .x { margin-left: 2px; color: #5f6368; }
+  .afx, .agP { display: none; }
+  .aoD { padding: 0 16px; }
+  .aoT { width: 100%; height: 40px; border: 0; border-bottom: 1px solid #eceff1; font: 14px Roboto, Arial, sans-serif; outline: none; color: #202124; padding: 0; }
+  .aoT::placeholder { color: #5f6368; }
+  .Ak { display: none; }
+  .Am.editable { height: 300px; padding: 12px 16px; font: 14px/1.5 Roboto, Arial, sans-serif; outline: none; color: #202124; overflow: hidden; }
+  .HE .aDg { padding: 10px 16px 12px; }
+  .IZ { width: auto; }
+  .btA { display: inline-flex; }
+  .dC { display: inline-flex; }
+  .aoO { height: 36px; line-height: 36px; padding: 0 24px; border-radius: 18px 0 0 18px; background: #0b57d0; color: #fff; font-weight: 500; font-size: 14px; cursor: pointer; }
+  .hG { height: 36px; width: 32px; border-radius: 0 18px 18px 0; background: #0b57d0; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid rgba(255,255,255,.3); }
+  .hG::before { content: "▾"; }
+  .tools { display: inline-flex; gap: 18px; margin-left: 18px; vertical-align: middle; color: #444746; font-size: 16px; line-height: 36px; }
+  .trash { float: right; color: #444746; line-height: 36px; font-size: 16px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo"><div class="m"></div>Gmail</div>
+  <div class="search">Search mail</div>
+  <div class="avatar">J</div>
+</div>
+<div class="side">
+  <div class="compose">✎&nbsp; Compose</div>
+  <ul class="nav">
+    <li class="active">Inbox</li><li>Starred</li><li>Snoozed</li><li>Sent</li><li>Drafts</li><li>More</li>
+  </ul>
+</div>
+<div class="list">
+  <div class="toolbar">☐ &nbsp;·&nbsp; ↻ &nbsp;·&nbsp; ⋮</div>
+  <div class="row"><div class="cb"></div><div class="from">Jordan Lee</div><div class="subj">Team offsite agenda <span>— Hi all, here is the draft agenda for next week's offsite…</span></div><div class="time">10:42 AM</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Acme Newsletter</div><div class="subj">October product updates <span>— Three new features and a look at what's next…</span></div><div class="time">9:15 AM</div></div>
+  <div class="row"><div class="cb"></div><div class="from">Priya Natarajan</div><div class="subj">Re: Reference letter <span>— Thanks so much for agreeing to write this…</span></div><div class="time">8:03 AM</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Campus Library</div><div class="subj">Your hold is ready for pickup <span>— The item you requested is available…</span></div><div class="time">Oct 14</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Sam Okafor</div><div class="subj">Lunch Thursday? <span>— Noon at the usual place works for me…</span></div><div class="time">Oct 14</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Calendar</div><div class="subj">Reminder: Project sync <span>— Tomorrow at 2:00 PM…</span></div><div class="time">Oct 13</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Morgan Reyes</div><div class="subj">Slides for Friday <span>— Attached is the latest deck, let me know…</span></div><div class="time">Oct 13</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Travel Desk</div><div class="subj">Itinerary confirmation <span>— Your booking is confirmed…</span></div><div class="time">Oct 12</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Alex Chen</div><div class="subj">Re: Draft review <span>— Looks great, just a couple of small notes…</span></div><div class="time">Oct 12</div></div>
+  <div class="row read"><div class="cb"></div><div class="from">Help Center</div><div class="subj">Welcome to your new inbox <span>— Tips to get started…</span></div><div class="time">Oct 11</div></div>
+</div>
+
+<!-- Compose window: same skeleton as real Gmail -->
+<div class="nH Hd rT5Apb" role="dialog" id="compose1">
+ <div class="aoI" role="region" aria-label="New Message">
+  <div class="hdr">New Message<span class="x">– ⤢ ✕</span></div>
+  <table class="aoP aoC" role="presentation"><tbody><tr><td class="I5 bzE">
+   <form class="bAs" method="POST" enctype="multipart/form-data">
+    <div class="fX aiL">
+     <div class="anm" aria-label="To" name="to">
+      <span class="chip"><i></i>Dr. Priya Natarajan<span class="x">✕</span></span>
+      <div class="afx" role="listbox" aria-label="Search Field"><input class="agP aFw" role="combobox" aria-label="To recipients" type="text"></div>
+     </div>
+    </div>
+    <div class="aoD az6"><input class="aoT" aria-label="Subject" name="subjectbox" tabindex="1" placeholder="Subject"></div>
+   </form>
+   <table class="iN"><tbody>
+    <tr><td class="GQ"><div class="GP"><div class="qz aiL"><div class="et"><div class="ZyRVue"><div>
+     <table class="cf An"><tbody><tr><td class="Ap">
+      <div class="Ar As"><div class="At"><textarea class="Ak aiL" aria-label="Message Body" tabindex="1"></textarea></div></div>
+      <div class="Ar Au"><div class="aO7">
+       <div class="Am aiL Al editable LW-avf tS-tW" role="textbox" aria-label="Message Body" contenteditable="true" g_editable="true" tabindex="1" aria-multiline="true"></div>
+      </div></div>
+     </td></tr></tbody></table>
+    </div></div></div></div></div></td></tr>
+    <tr><td class="HE"><div class="aDg"><div class="aDj ahe"><div class="aDh">
+     <table class="IZ" role="group"><tbody><tr class="btC">
+      <td class="gU Up"><div class="J-J5-Ji btA"><div class="dC">
+       <div class="T-I J-J5-Ji aoO v7 T-I-atl L3" role="button" aria-label="Send &#x202a;(Ctrl-Enter)&#x202b;" data-tooltip="Send &#x202a;(Ctrl-Enter)&#x202b;" tabindex="1">Send</div>
+       <div class="T-I J-J5-Ji hG T-I-atl L3" role="button" aria-label="More send options" data-tooltip="More send options" tabindex="1"></div>
+      </div></div><span class="tools">A &nbsp;🖇 &nbsp;🔗 &nbsp;☺ &nbsp;▲ &nbsp;🖼 &nbsp;🔒 &nbsp;✎ &nbsp;⋮</span></td>
+     </tr></tbody></table>
+     <span class="trash">🗑</span>
+    </div></div></div></td></tr>
+   </tbody></table>
+  </td></tr></tbody></table>
+ </div>
+</div>
+</body>
+</html>

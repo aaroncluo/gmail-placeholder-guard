@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Placeholder Guard for Gmail</title>
+<style>
+  body { max-width: 720px; margin: 40px auto; padding: 0 20px; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; color: #202124; }
+  h1 { font-size: 1.8rem; } h2 { font-size: 1.2rem; margin-top: 2rem; }
+  code { background: #f1f3f4; padding: 1px 5px; border-radius: 4px; }
+  table { border-collapse: collapse; } td, th { border: 1px solid #dadce0; padding: 6px 10px; text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>Privacy Policy — Placeholder Guard for Gmail</h1>
+<p><em>Effective date: October 15, 2026</em></p>
+
+<p>Placeholder Guard for Gmail (“the extension”) is a browser extension that warns
+you before you send a Gmail message that still contains square-bracket
+placeholders such as <code>[Name]</code>. This policy explains exactly what the
+extension does with your data. It is written to match the extension's source
+code, which is open and included in every release.</p>
+
+<h2>What the extension accesses</h2>
+<p>The extension runs only on pages under <code>https://mail.google.com/</code>.
+At the moment you trigger a send (clicking <strong>Send</strong>, pressing
+Enter/Space on the Send button, or pressing Ctrl/Cmd+Enter), it reads, from the
+Gmail page in your browser:</p>
+<ul>
+  <li>the <strong>subject line</strong> of the draft being sent, and</li>
+  <li>the <strong>body text</strong> of the draft being sent (excluding quoted
+      earlier messages and your signature).</li>
+</ul>
+<p>It scans that text for the characters <code>[</code> and <code>]</code>. If
+any are found, it cancels the send and shows a warning that quotes the short
+piece of your draft containing the brackets, so you can see what it found.</p>
+<p>This is personal communications data. The extension <em>does</em> read it —
+that is its purpose — but only inside the page, only at the moment of sending,
+and only for the draft you are sending.</p>
+
+<h2>What the extension does not do</h2>
+<table>
+  <tr><th>Collect or store</th><td>Nothing is saved. There is no database, no browser storage, no cookies, no settings. Once the warning is dismissed (or the send goes through), the text that was read is discarded.</td></tr>
+  <tr><th>Transmit</th><td>Nothing leaves your browser. The extension makes no network requests of any kind and has no server. It declares no Chrome permissions beyond running on mail.google.com.</td></tr>
+  <tr><th>Read other mail</th><td>It does not read your inbox, other drafts, contacts, attachments, recipients, or messages you are not currently sending.</td></tr>
+  <tr><th>Track</th><td>No analytics, telemetry, identifiers, or crash reporting. The only diagnostic output is one line in the browser's developer console that says the extension loaded; it contains no message content.</td></tr>
+  <tr><th>Sell or share</th><td>No data is sold, shared, or transferred to anyone, for any purpose.</td></tr>
+  <tr><th>Use AI or remote code</th><td>Bracket detection is a local text check. No AI service is involved and no code is loaded from the internet.</td></tr>
+</table>
+
+<h2>Permissions</h2>
+<p>The extension requests no Chrome API permissions (no <code>storage</code>,
+<code>tabs</code>, <code>identity</code>, etc.). Its only access is a content
+script that Chrome runs on <code>https://mail.google.com/*</code>, which is
+required to inspect the draft and show the warning inside Gmail.</p>
+
+<h2>Limited Use disclosure</h2>
+<p>The extension's use of information received from Google services adheres to
+the Chrome Web Store User Data Policy, including the Limited Use requirements.
+Data is used solely to provide the user-facing feature described above.</p>
+
+<h2>Children</h2>
+<p>The extension is not directed at children and collects no data from anyone.</p>
+
+<h2>Changes</h2>
+<p>If a future version changes how data is handled, this policy and the
+extension's version history will be updated before that version is published.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy: open an issue on the project's GitHub repository
+(linked from the Chrome Web Store listing) or use the support email shown on the
+listing.</p>
+</body>
+</html>

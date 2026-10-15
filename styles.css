@@ -1,0 +1,127 @@
+/* Gmail Placeholder Guard — warning dialog, styled to sit naturally in Gmail. */
+
+.pg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(32, 33, 36, 0.6);
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  color: #202124;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.pg-dialog {
+  box-sizing: border-box;
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0 9px 46px 8px rgba(0, 0, 0, 0.12);
+  padding: 24px;
+  margin: 0;
+}
+
+.pg-title {
+  margin: 0 0 12px;
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: #202124;
+  letter-spacing: 0;
+}
+
+.pg-desc {
+  margin: 0 0 12px;
+  font-size: 0.875rem;
+  color: #5f6368;
+}
+
+.pg-list {
+  margin: 0 0 20px;
+  padding: 8px 12px;
+  list-style: none;
+  background: #fef7e0;
+  border-left: 3px solid #f9ab00;
+  border-radius: 4px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.pg-item {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 4px 0;
+  font-size: 0.8125rem;
+  color: #202124;
+}
+
+.pg-field {
+  flex: 0 0 auto;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #b06000;
+  min-width: 52px;
+}
+
+.pg-snippet {
+  font-family: "Roboto Mono", Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: transparent;
+  padding: 0;
+}
+
+.pg-more {
+  color: #5f6368;
+  font-style: italic;
+}
+
+.pg-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.pg-btn {
+  appearance: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 36px;
+  font: 500 0.875rem/36px "Google Sans", Roboto, Arial, sans-serif;
+  letter-spacing: 0.0107em;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.pg-btn:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #1a73e8;
+}
+
+.pg-btn-primary {
+  background: #1a73e8;
+  color: #fff;
+}
+
+.pg-btn-primary:hover {
+  background: #1765cc;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+
+.pg-btn-secondary {
+  background: #fff;
+  color: #1a73e8;
+  border-color: #dadce0;
+}
+
+.pg-btn-secondary:hover {
+  background: #f6fafe;
+}
